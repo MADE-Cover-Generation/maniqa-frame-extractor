@@ -5,7 +5,7 @@ import os.path
 class VideoDataset():
     def __init__(self, dir_path):
         self.path = dir_path
-        self.files = glob.glob(os.path.join(dir_path, '*.mp4'))
+        self.files = glob.glob(os.path.join(dir_path, '*.webm'))
         print(self.files)
 
     def __len__(self):

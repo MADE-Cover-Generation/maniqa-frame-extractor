@@ -45,9 +45,9 @@ class SaveOutput:
 
 
 class MANIQA(nn.Module):
-    def __init__(self, embed_dim=72, num_outputs=1, patch_size=8, drop=0.1, 
+    def __init__(self, embed_dim=768, num_outputs=1, patch_size=8, drop=0.1, 
                     depths=[2, 2], window_size=4, dim_mlp=768, num_heads=[4, 4],
-                    img_size=224, num_tab=2, scale=0.8, **kwargs):
+                    img_size=224, num_tab=2, scale=0.13, **kwargs):
         super().__init__()
         self.img_size = img_size
         self.patch_size = patch_size
@@ -139,7 +139,7 @@ class MANIQA(nn.Module):
         x = self.swintransformer2(x)
 
         x = rearrange(x, 'b c h w -> b (h w) c', h=self.input_size, w=self.input_size)
-        score = torch.tensor([]).cuda()
+        score = torch.tensor([])#.cuda()
         for i in range(x.shape[0]):
             f = self.fc_score(x[i])
             w = self.fc_weight(x[i])

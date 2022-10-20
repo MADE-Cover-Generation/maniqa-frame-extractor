@@ -1,4 +1,5 @@
 import cv2
+import random
 
 
 class FrameExtractor():
@@ -20,7 +21,31 @@ class FrameExtractor():
         capture.release()
         return result
 
+
+    def get_step(self) -> int:
+        return self.step
+
     def get_frames_count(self, path):
         video = cv2.VideoCapture(path)
         frame_count = video.get(cv2.CAP_PROP_FRAME_COUNT)
         return frame_count
+        
+        
+    def get_random_frame(self, path):
+        frame_count = self.get_frames_count(path)
+        capture = cv2.VideoCapture(path)
+        frame = random.randrange(0, frame_count)
+        capture.set(cv2.CAP_PROP_POS_FRAMES, frame)
+        success, image = capture.read()
+        capture.release()
+        return image 
+        
+        
+    def get_frame(self, path: str, index: int):
+        capture = cv2.VideoCapture(path)
+        capture.set(cv2.CAP_PROP_POS_FRAMES, index)
+        _, image = capture.read()
+        capture.release()
+        return image
+
+    
