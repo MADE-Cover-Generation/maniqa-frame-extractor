@@ -7,6 +7,12 @@ from models.swin import SwinTransformer
 from torch import nn
 from einops import rearrange
 
+from torch import Tensor
+import torch.nn.functional as F
+
+class GELU(torch.nn.Module):
+    def forward(self, input: Tensor) -> Tensor:
+        return F.gelu(input)
 
 class TABlock(nn.Module):
     def __init__(self, dim, drop=0.1):
@@ -139,7 +145,7 @@ class MANIQA(nn.Module):
         x = self.swintransformer2(x)
 
         x = rearrange(x, 'b c h w -> b (h w) c', h=self.input_size, w=self.input_size)
-        score = torch.tensor([])#.cuda()
+        score = torch.tensor([]).cuda()
         for i in range(x.shape[0]):
             f = self.fc_score(x[i])
             w = self.fc_weight(x[i])
