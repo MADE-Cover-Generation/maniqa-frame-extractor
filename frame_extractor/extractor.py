@@ -46,7 +46,6 @@ class FrameExtractor():
         
         return result
 
-    
     def get_random_frames_in_groups(self, path, n_groups = 4):
         result = []
         current_frame = 0
