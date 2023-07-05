@@ -25,9 +25,11 @@ VERBOSE = False
 from torch import Tensor
 import torch.nn.functional as F
 
+
 class GELU(torch.nn.Module):
     def forward(self, input: Tensor) -> Tensor:
         return F.gelu(input)
+
 
 torch.nn.modules.activation.GELU = GELU
 
@@ -57,6 +59,7 @@ def prepare(img):
     transform = transforms.Compose([Normalize(0.5, 0.5), ToTensor()])
     sample = transform(sample)
     return sample
+
 
 def random_crop(d_img):
     c, h, w = d_img.shape
@@ -179,9 +182,6 @@ def generate_random_frames(video_dataset, extractor, number_of_frames = 4):
             os.remove(path)
         cv2.imwrite(output_path, im_v)
         gc.collect()
-
-
-model_path = "/home/kirill/Documents/final_project_dataset/ckpt_valid"
 
 
 if __name__ == '__main__':
