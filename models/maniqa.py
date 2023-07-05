@@ -10,9 +10,11 @@ from einops import rearrange
 from torch import Tensor
 import torch.nn.functional as F
 
+
 class GELU(torch.nn.Module):
     def forward(self, input: Tensor) -> Tensor:
         return F.gelu(input)
+
 
 class TABlock(nn.Module):
     def __init__(self, dim, drop=0.1):
